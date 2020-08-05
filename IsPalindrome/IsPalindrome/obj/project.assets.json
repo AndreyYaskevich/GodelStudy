@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Yaskevich\\source\\repos\\IsPalindrome\\IsPalindrome\\IsPalindrome.csproj",
+      "projectUniqueName": "E:\\CSharp\\GodelStudy\\IsPalindrome\\IsPalindrome\\IsPalindrome.csproj",
       "projectName": "IsPalindrome",
-      "projectPath": "C:\\Users\\Yaskevich\\source\\repos\\IsPalindrome\\IsPalindrome\\IsPalindrome.csproj",
+      "projectPath": "E:\\CSharp\\GodelStudy\\IsPalindrome\\IsPalindrome\\IsPalindrome.csproj",
       "packagesPath": "C:\\Users\\Yaskevich\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Yaskevich\\source\\repos\\IsPalindrome\\IsPalindrome\\obj\\",
+      "outputPath": "E:\\CSharp\\GodelStudy\\IsPalindrome\\IsPalindrome\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

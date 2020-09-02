@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MusicApplication.Controllers;
 using MusicApplication.Models;
 
 namespace MusicApplication
@@ -24,7 +25,7 @@ namespace MusicApplication
                 try
                 {
                     var context = services.GetRequiredService<ApplicationContext>();
-                    SampleData.Initialize(context);
+                    HomeController controller = new HomeController(context);
                 }
                 catch (Exception ex)
                 {

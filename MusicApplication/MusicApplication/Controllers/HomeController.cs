@@ -13,6 +13,11 @@ namespace MusicApplication.Controllers
         ApplicationContext db;
         public HomeController(ApplicationContext context)
         {
+            Initialize(context);
+        }
+
+        protected void Initialize(ApplicationContext context)
+        {
             db = context;
             if (!context.Songs.Any())
             {
@@ -22,7 +27,7 @@ namespace MusicApplication.Controllers
                         Name = "Immortals",
                         Author = "Fall Out Boys"
                     },
-                    new Song 
+                    new Song
                     {
                         Name = "Peremen",
                         Author = "Tsoy"
@@ -31,7 +36,6 @@ namespace MusicApplication.Controllers
                 context.SaveChanges();
             }
         }
-
         public Song GetSong(int id)
         {
             Song song = db.Songs.FirstOrDefault(x => x.Id == id);

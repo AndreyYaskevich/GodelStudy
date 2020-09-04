@@ -27,9 +27,12 @@ namespace MusicApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddControllers();
+            
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(MusicRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,10 +47,7 @@ namespace MusicApplication
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }

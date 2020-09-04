@@ -25,7 +25,8 @@ namespace MusicApplication
                 try
                 {
                     var context = services.GetRequiredService<ApplicationContext>();
-                    HomeController controller = new HomeController(context);
+                    
+                    
                 }
                 catch (Exception ex)
                 {

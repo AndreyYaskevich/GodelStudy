@@ -35,6 +35,20 @@ namespace MusicApplication.Models
                     AlbumId = 1,
                     Name = "Song1",
                     Author="Author1"
+                },
+                new Song
+                {
+                    Id = 2,
+                    AlbumId = 1,
+                    Name = "Song2",
+                    Author = "Author2"
+                },
+                new Song
+                {
+                    Id = 3,
+                    AlbumId = 1,
+                    Name = "Song3",
+                    Author = "Author3"
                 });
         }
 

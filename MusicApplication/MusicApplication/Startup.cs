@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MusicApplication.Models;
+using MusicApplication.Services;
 
 namespace MusicApplication
 {
@@ -33,6 +34,7 @@ namespace MusicApplication
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
             services.AddScoped(typeof(IGenericRepository<>), typeof(MusicRepository<>));
+            services.AddTransient<ISongService, SongService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +50,15 @@ namespace MusicApplication
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.Map("/index", Index);
+        }
+
+        private static void Index(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Index");
             });
         }
     }

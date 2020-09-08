@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MusicApplication.Models;
+using MusicApplication.Services;
 
 namespace MusicApplication.Controllers
 {
@@ -12,9 +13,11 @@ namespace MusicApplication.Controllers
     public class SongsController : Controller
     {
         private readonly IGenericRepository<Song> _repository;
-        public SongsController(IGenericRepository<Song> context)
+        private readonly ISongService _service;
+        public SongsController(IGenericRepository<Song> context, ISongService service)
         {
             _repository = context;
+            _service = service;
         }
 
         [HttpGet]
@@ -26,8 +29,9 @@ namespace MusicApplication.Controllers
 
         [HttpPost]
         [Route("")]
-        public void AddAlbum([FromBody] Song song) => _repository.Insert(song);
+        public void AddSong([FromBody] List<Song> songs) => _service.AddSongsWithPrefix(songs);
 
+        
         [HttpPut]
         public void Update(Song song)
         {

@@ -25,6 +25,6 @@ namespace MusicApplication
         void Delete(int id);
         void Update(T entity);
         void Save();
-        
+        int GetCountOfSongs();
     }
 }

@@ -28,6 +28,7 @@ namespace MusicApplication
             return entites.Find(id);
         }
 
+        
         public void Insert(T entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
@@ -57,6 +58,11 @@ namespace MusicApplication
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public int GetCountOfSongs()
+        {
+            return _context.Songs.Count();
         }
     }
 }

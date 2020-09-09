@@ -16,13 +16,12 @@ namespace MusicApplication.Services
         }
         public void AddSongsWithPrefix(List<Song> songs)
         {
-            var tmp = _repository.GetCountOfSongs();
             foreach (var song in songs)
             {
-                
-                song.Name = $"{_repository.GetCountOfSongs()+1}.{song.Name}";
                 _repository.Insert(song);
-                
+                var lastSong = _repository.GetLast();
+                lastSong.Name = $"{lastSong.Id}.{lastSong.Name}";
+                _repository.Update(lastSong);
             }
         }
     }

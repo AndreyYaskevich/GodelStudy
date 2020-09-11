@@ -1,38 +1,47 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using MusicApplication.Models;
+using Sitecore.FakeDb;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace MusicApplication
 {
-    public class MusicRepository<T> : IGenericRepository<T> where T: class
+    public class MusicRepository<T> : IMusicRepository<T> where T: class
     {
         private ApplicationContext _context;
-        private DbSet<T> entites;
+        private DbSet<T> _entites;
         public MusicRepository(ApplicationContext context)
         {
             _context = context;
-            entites = context.Set<T>();
+            _entites = context.Set<T>();
 
         }
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            return entites.ToList();
+            IQueryable <T> query = null;
+            foreach (var include in includes)
+            {
+                query = _entites.Include(include);
+            }
+            return query.Where(predicate) ?? _entites;
         }
 
         public T GetById(int id)
         {
-            return entites.Find(id);
+            return _entites.Find(id);
         }
 
         
         public void Insert(T entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
-            entites.Add(entity);
+            _entites.Add(entity);
             _context.SaveChanges();
         }
 
@@ -50,8 +59,8 @@ namespace MusicApplication
         }
         public void Delete(int id)
         {
-            var ent = entites.Find(id);
-            entites.Remove(ent);
+            var ent = _entites.Find(id);
+            _entites.Remove(ent);
             _context.SaveChanges();
         }
 
@@ -60,9 +69,12 @@ namespace MusicApplication
             _context.SaveChanges();
         }
 
-        public int GetCountOfSongs()
+        public Song GetLast()
         {
-            return _context.Songs.Count();
+            var songs = _context.Songs;
+            var latestId = songs.Max(x => x.Id);
+            return songs.Find(latestId);
         }
+
     }
 }
